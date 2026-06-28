@@ -47,7 +47,7 @@ Route::get('/category/{catid}', [FirstController::class, 'GetCategoryProducts'])
 
 // المنتجات
 // Route::get('/product/{id}', [FirstController::class,'GetCategoryProducts']);
-Route::get('/product', [FirstController::class, 'getAllProducts']);
+Route::get('/product', [FirstController::class, 'getAllProducts'])->name('products.product');
 Route::get('/singleProduct/{id}', [ProductController::class, 'show'])
     ->name('singleProduct.show');
 Route::delete('/products/remove/{id}', [ProductController::class, 'destroy'])

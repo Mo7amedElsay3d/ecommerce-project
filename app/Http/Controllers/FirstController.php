@@ -40,7 +40,7 @@ class FirstController extends Controller
         $categories = category::all();
         $products = product::all();
 
-        return view('product.products', ['Categories' => $categories, 'products' => $products])->with('category_id', null);;
+        return view('products.product', ['Categories' => $categories, 'products' => $products])->with('category_id', null);;
     }
     public function search( Request $request){
 
