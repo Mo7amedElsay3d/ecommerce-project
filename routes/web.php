@@ -49,7 +49,7 @@ Route::get('/category/{catid}', [FirstController::class, 'GetCategoryProducts'])
 // Route::get('/product/{id}', [FirstController::class,'GetCategoryProducts']);
 Route::get('/product', [FirstController::class, 'getAllProducts']);
 Route::get('/singleProduct/{id}', [ProductController::class, 'show'])
-    ->name('products.show');
+    ->name('singleProduct.show');
 Route::delete('/products/remove/{id}', [ProductController::class, 'destroy'])
     ->name('products.remove');
 Route::get('/search', [FirstController::class, 'search'])->name('search');
