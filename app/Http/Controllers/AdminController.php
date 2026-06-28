@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Order;
 use App\Models\Product;
 use App\Models\Category;
+use App\Models\OrderItem;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
@@ -14,7 +16,96 @@ class AdminController extends Controller
     public function dashboard()
     {
         $categories = Category::all();
-        return view('admin.dashboard', compact('categories'));
+        $orders = Order::all();
+        $filter = request('filter', 'today');
+        $filterLabel = match ($filter) {
+            'month' => 'This Month',
+            'year'  => 'This Year',
+            default => 'Today',
+        };
+        $query = Order::query();
+        if ($filter == 'today') {
+            $query->whereDate('created_at', today());
+        } elseif ($filter == 'month') {
+            $query->whereMonth('created_at', now()->month)
+                ->whereYear('created_at', now()->year);
+        } elseif ($filter == 'year') {
+            $query->whereYear('created_at', now()->year);
+        }
+        $ordersCount = $query->count();
+
+        $query = User::where('role', 'user');
+        if ($filter == 'today') {
+            $query->whereDate('created_at', today());
+        } elseif ($filter == 'month') {
+            $query->whereMonth('created_at', now()->month)
+                ->whereYear('created_at', now()->year);
+        } elseif ($filter == 'year') {
+            $query->whereYear('created_at', now()->year);
+        }
+
+        $CustomerCount = $query->count();
+
+
+        $query = Order::query();
+        if ($filter == 'today') {
+            $query->whereDate('created_at', today());
+        } elseif ($filter == 'month') {
+            $query->whereMonth('created_at', now()->month)
+                ->whereYear('created_at', now()->year);
+        } elseif ($filter == 'year') {
+            $query->whereYear('created_at', now()->year);
+        }
+        $revenue = $query->sum('total');
+
+        $orders = Order::with('user');
+        if ($filter == 'today') {
+            $orders->whereDate('created_at', today());
+        } elseif ($filter == 'month') {
+            $orders->whereMonth('created_at', now()->month)
+                ->whereYear('created_at', now()->year);
+        } elseif ($filter == 'year') {
+            $orders->whereYear('created_at', now()->year);
+        }
+        $orders = $orders->latest()->take(10)->get();
+
+
+        $topProducts = OrderItem::join('orders', 'order_items.order_id', '=', 'orders.id')
+            ->selectRaw('
+        order_items.product_id,
+        SUM(order_items.quantity) as total_sold,
+        SUM(order_items.quantity * order_items.price) as total_revenue
+    ');
+        if ($filter == 'today') {
+
+            $topProducts->whereDate('orders.created_at', today());
+        } elseif ($filter == 'month') {
+
+            $topProducts->whereMonth('orders.created_at', now()->month)
+                ->whereYear('orders.created_at', now()->year);
+        } elseif ($filter == 'year') {
+
+            $topProducts->whereYear('orders.created_at', now()->year);
+        }
+        $filterLabel = match ($filter) {
+            'today' => 'Today',
+            'month' => 'This Month',
+            'year' => 'This Year',
+            default => 'All Time'
+        };
+        $topProducts = $topProducts
+            ->groupBy('order_items.product_id')
+            ->orderByDesc('total_sold')
+            ->take(5)
+            ->get();
+
+        foreach ($topProducts as $item) {
+            $item->product = Product::find($item->product_id);
+        }
+
+
+
+        return view('admin.dashboard', compact('categories', 'topProducts', 'orders', 'filterLabel', 'ordersCount', 'CustomerCount', 'revenue'));
     }
 
     public function index()

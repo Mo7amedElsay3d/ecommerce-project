@@ -25,12 +25,12 @@
 
 
         <!-- =======================================================
-      * Template Name: NiceAdmin
-      * Template URL: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/
-      * Updated: Apr 20 2024 with Bootstrap v5.3.3
-      * Author: BootstrapMade.com
-      * License: https://bootstrapmade.com/license/
-      ======================================================== -->
+              * Template Name: NiceAdmin
+              * Template URL: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/
+              * Updated: Apr 20 2024 with Bootstrap v5.3.3
+              * Author: BootstrapMade.com
+              * License: https://bootstrapmade.com/license/
+              ======================================================== -->
     </head>
 
     <body>
@@ -70,14 +70,17 @@
                                                 <h6>Filter</h6>
                                             </li>
 
-                                            <li><a class="dropdown-item" href="#">Today</a></li>
-                                            <li><a class="dropdown-item" href="#">This Month</a></li>
-                                            <li><a class="dropdown-item" href="#">This Year</a></li>
+                                            <li><a class="dropdown-item"
+                                                    href="{{ url('/dashboard?filter=today') }}">Today</a></li>
+                                            <li><a class="dropdown-item" href="{{ url('/dashboard?filter=month') }}">This
+                                                    Month</a></li>
+                                            <li><a class="dropdown-item" href="{{ url('/dashboard?filter=year') }}">This
+                                                    Year</a></li>
                                         </ul>
                                     </div>
 
                                     <div class="card-body">
-                                        <h5 class="card-title">Sales <span>| Today</span></h5>
+                                        <h5 class="card-title">Sales Order <span>| {{ $filterLabel }}</span></h5>
 
                                         <div class="d-flex align-items-center">
                                             <div
@@ -85,7 +88,7 @@
                                                 <i class="bi bi-cart"></i>
                                             </div>
                                             <div class="ps-3">
-                                                <h6>145</h6>
+                                                <h6>{{ $ordersCount }}</h6>
                                                 <span class="text-success small pt-1 fw-bold">12%</span> <span
                                                     class="text-muted small pt-2 ps-1">increase</span>
 
@@ -108,14 +111,17 @@
                                                 <h6>Filter</h6>
                                             </li>
 
-                                            <li><a class="dropdown-item" href="#">Today</a></li>
-                                            <li><a class="dropdown-item" href="#">This Month</a></li>
-                                            <li><a class="dropdown-item" href="#">This Year</a></li>
+                                            <li><a class="dropdown-item"
+                                                    href="{{ url('/dashboard?filter=today') }}">Today</a></li>
+                                            <li><a class="dropdown-item" href="{{ url('/dashboard?filter=month') }}">This
+                                                    Month</a></li>
+                                            <li><a class="dropdown-item" href="{{ url('/dashboard?filter=year') }}">This
+                                                    Year</a></li>
                                         </ul>
                                     </div>
 
                                     <div class="card-body">
-                                        <h5 class="card-title">Revenue <span>| This Month</span></h5>
+                                        <h5 class="card-title">Revenue <span>| {{ $filterLabel }}</span></h5>
 
                                         <div class="d-flex align-items-center">
                                             <div
@@ -123,7 +129,7 @@
                                                 <i class="bi bi-currency-dollar"></i>
                                             </div>
                                             <div class="ps-3">
-                                                <h6>$3,264</h6>
+                                                <h6>{{ $revenue }}</h6>
                                                 <span class="text-success small pt-1 fw-bold">8%</span> <span
                                                     class="text-muted small pt-2 ps-1">increase</span>
 
@@ -147,14 +153,17 @@
                                                 <h6>Filter</h6>
                                             </li>
 
-                                            <li><a class="dropdown-item" href="#">Today</a></li>
-                                            <li><a class="dropdown-item" href="#">This Month</a></li>
-                                            <li><a class="dropdown-item" href="#">This Year</a></li>
+                                            <li><a class="dropdown-item"
+                                                    href="{{ url('/dashboard?filter=today') }}">Today</a></li>
+                                            <li><a class="dropdown-item" href="{{ url('/dashboard?filter=month') }}">This
+                                                    Month</a></li>
+                                            <li><a class="dropdown-item" href="{{ url('/dashboard?filter=year') }}">This
+                                                    Year</a></li>
                                         </ul>
                                     </div>
 
                                     <div class="card-body">
-                                        <h5 class="card-title">Customers <span>| This Year</span></h5>
+                                        <h5 class="card-title">Customers <span>| {{ $filterLabel }}</span></h5>
 
                                         <div class="d-flex align-items-center">
                                             <div
@@ -162,10 +171,8 @@
                                                 <i class="bi bi-people"></i>
                                             </div>
                                             <div class="ps-3">
-                                                <h6>1244</h6>
-                                                <span class="text-danger small pt-1 fw-bold">12%</span> <span
-                                                    class="text-muted small pt-2 ps-1">decrease</span>
-
+                                                <h6>{{ $CustomerCount }}</h6>
+                                                <span class="text-muted small">Registered Customers</span>
                                             </div>
                                         </div>
 
@@ -273,66 +280,39 @@
                                                 <h6>Filter</h6>
                                             </li>
 
-                                            <li><a class="dropdown-item" href="#">Today</a></li>
-                                            <li><a class="dropdown-item" href="#">This Month</a></li>
-                                            <li><a class="dropdown-item" href="#">This Year</a></li>
+                                            <li><a class="dropdown-item"
+                                                    href="{{ url('/dashboard?filter=today') }}">Today</a></li>
+                                            <li><a class="dropdown-item" href="{{ url('/dashboard?filter=month') }}">This
+                                                    Month</a></li>
+                                            <li><a class="dropdown-item" href="{{ url('/dashboard?filter=year') }}">This
+                                                    Year</a></li>
                                         </ul>
                                     </div>
 
                                     <div class="card-body">
-                                        <h5 class="card-title">Recent Sales <span>| Today</span></h5>
+                                        <h5 class="card-title">Recent Orders <span>| {{ $filterLabel }}</span></h5>
+
 
                                         <table class="table table-borderless datatable">
                                             <thead>
                                                 <tr>
                                                     <th scope="col">#</th>
-                                                    <th scope="col">Customer</th>
-                                                    <th scope="col">Product</th>
-                                                    <th scope="col">Price</th>
+                                                    <th scope="col">Name</th>
+                                                    <th scope="col">Total</th>
                                                     <th scope="col">Status</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr>
-                                                    <th scope="row"><a href="#">#2457</a></th>
-                                                    <td>Brandon Jacob</td>
-                                                    <td><a href="#" class="text-primary">At praesentium minu</a>
-                                                    </td>
-                                                    <td>$64</td>
-                                                    <td><span class="badge bg-success">Approved</span></td>
-                                                </tr>
-                                                <tr>
-                                                    <th scope="row"><a href="#">#2147</a></th>
-                                                    <td>Bridie Kessler</td>
-                                                    <td><a href="#" class="text-primary">Blanditiis dolor omnis
-                                                            similique</a></td>
-                                                    <td>$47</td>
-                                                    <td><span class="badge bg-warning">Pending</span></td>
-                                                </tr>
-                                                <tr>
-                                                    <th scope="row"><a href="#">#2049</a></th>
-                                                    <td>Ashleigh Langosh</td>
-                                                    <td><a href="#" class="text-primary">At recusandae
-                                                            consectetur</a></td>
-                                                    <td>$147</td>
-                                                    <td><span class="badge bg-success">Approved</span></td>
-                                                </tr>
-                                                <tr>
-                                                    <th scope="row"><a href="#">#2644</a></th>
-                                                    <td>Angus Grady</td>
-                                                    <td><a href="#" class="text-primar">Ut voluptatem id earum
-                                                            et</a></td>
-                                                    <td>$67</td>
-                                                    <td><span class="badge bg-danger">Rejected</span></td>
-                                                </tr>
-                                                <tr>
-                                                    <th scope="row"><a href="#">#2644</a></th>
-                                                    <td>Raheem Lehner</td>
-                                                    <td><a href="#" class="text-primary">Sunt similique
-                                                            distinctio</a></td>
-                                                    <td>$165</td>
-                                                    <td><span class="badge bg-success">Approved</span></td>
-                                                </tr>
+                                                @foreach ($orders as $item)
+                                                    <tr>
+                                                        <th scope="row"><a href="#">{{ $item->id }}</a></th>
+                                                        <td>{{ $item->user->name }}</td>
+                                                        <td><a href="#"
+                                                                class="text-primary">{{ $item->total }}</a>
+                                                        </td>
+                                                        <td><span class="badge bg-success">{{ $item->status }}</span></td>
+                                                    </tr>
+                                                @endforeach
                                             </tbody>
                                         </table>
 
@@ -353,76 +333,39 @@
                                                 <h6>Filter</h6>
                                             </li>
 
-                                            <li><a class="dropdown-item" href="#">Today</a></li>
-                                            <li><a class="dropdown-item" href="#">This Month</a></li>
-                                            <li><a class="dropdown-item" href="#">This Year</a></li>
+                                            <li><a class="dropdown-item" href="{{ url('/dashboard?filter=today') }}">Today</a></li>
+                                            <li><a class="dropdown-item" href="{{ url('/dashboard?filter=month') }}">This Month</a></li>
+                                            <li><a class="dropdown-item" href="{{ url('/dashboard?filter=year') }}">This Year</a></li>
                                         </ul>
                                     </div>
 
                                     <div class="card-body pb-0">
-                                        <h5 class="card-title">Top Selling <span>| Today</span></h5>
+                                        <h5 class="card-title">Top Selling <span>| {{ $filterLabel }}</span></h5>
 
                                         <table class="table table-borderless">
                                             <thead>
                                                 <tr>
-                                                    <th scope="col">Preview</th>
-                                                    <th scope="col">Product</th>
+                                                    
+                                                    <th scope="col">image</th>
+                                                    <th scope="col">Product name</th>
                                                     <th scope="col">Price</th>
-                                                    <th scope="col">Sold</th>
-                                                    <th scope="col">Revenue</th>
+                                                    <th scope="col">Quantity</th>
+                                                    <th scope="col">Total</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
+                                                @foreach ($topProducts as $item)
                                                 <tr>
-                                                    <th scope="row"><a href="#"><img
-                                                                src="{{ asset('admin/assets/img/product-1.jpg') }}"
-                                                                alt=""></a></th>
-                                                    <td><a href="#" class="text-primary fw-bold">Ut inventore ipsa
-                                                            voluptas nulla</a></td>
-                                                    <td>$64</td>
-                                                    <td class="fw-bold">124</td>
-                                                    <td>$5,828</td>
-                                                </tr>
-                                                <tr>
-                                                    <th scope="row"><a href="#"><img
-                                                                src="{{ asset('admin/assets/img/product-2.jpg') }}"
-                                                                alt=""></a></th>
-                                                    <td><a href="#" class="text-primary fw-bold">Exercitationem
-                                                            similique doloremque</a></td>
-                                                    <td>$46</td>
-                                                    <td class="fw-bold">98</td>
-                                                    <td>$4,508</td>
-                                                </tr>
-                                                <tr>
-                                                    <th scope="row"><a href="#"><img
-                                                                src="{{ asset('admin/assets/img/product-3.jpg') }}"
-                                                                alt=""></a></th>
-                                                    <td><a href="#" class="text-primary fw-bold">Doloribus nisi
-                                                            exercitationem</a></td>
-                                                    <td>$59</td>
-                                                    <td class="fw-bold">74</td>
-                                                    <td>$4,366</td>
-                                                </tr>
-                                                <tr>
-                                                    <th scope="row"><a href="#"><img
-                                                                src="{{ asset('admin/assets/img/product-4.jpg') }}"
-                                                                alt=""></a></th>
-                                                    <td><a href="#" class="text-primary fw-bold">Officiis quaerat
-                                                            sint rerum error</a></td>
-                                                    <td>$32</td>
-                                                    <td class="fw-bold">63</td>
-                                                    <td>$2,016</td>
-                                                </tr>
-                                                <tr>
-                                                    <th scope="row"><a href="#"><img
-                                                                src="{{ asset('admin/assets/img/product-5.jpg') }}"
-                                                                alt=""></a></th>
-                                                    <td><a href="#" class="text-primary fw-bold">Sit unde debitis
-                                                            delectus repellendus</a></td>
-                                                    <td>$79</td>
-                                                    <td class="fw-bold">41</td>
-                                                    <td>$3,239</td>
-                                                </tr>
+                                                    <th scope="row">  <img src="{{ url($item->product->imagepath) }}" width="40"
+                                                        height="40" alt=""></th>
+                                                        <td><a href="#" class="text-primary fw-bold">{{ $item->product->name }} </a></td>
+                                                        <td>{{ $item->product->price }}</td>
+                                                        <td class="fw-bold">{{ $item->total_sold }}</td>
+                                                        <td>${{ $item->total_revenue }}</td>
+                                                    </tr>
+                                                    @endforeach
+                                               
+                                                
                                             </tbody>
                                         </table>
 
@@ -759,7 +702,7 @@
         <script src="{{ asset('admin/assets/vendor/php-email-form/validate.js') }}"></script>
 
         <!-- Template Main JS File -->
-        
+
     </body>
 
     </html>

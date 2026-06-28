@@ -121,6 +121,7 @@ class ProductController extends Controller
             'address' => 'required',
             'payment_method' => 'required',
         ]);
+        $paymentMethod = $request->payment_method;
 
         $order =  Order::create([
 
@@ -136,7 +137,7 @@ class ProductController extends Controller
 
             'total' => $total,
 
-            'payment_method' => $request->payment_method,
+            'payment_method' => $paymentMethod,
 
             'payment_status' => 'pending',
 

@@ -63,26 +63,31 @@
                                                     <input type="text" name="phone" placeholder="Phone" required>
                                                 </p>
 
-                                                <div class="payment-methods">
+                                                <div class="form-check mb-2">
+                                                    <input class="form-check-input" type="radio" name="payment_method"
+                                                        value="cash" checked>
 
-                                                    <div class="form-check mb-2">
-                                                        <input class="form-check-input" type="radio" name="payment_method"
-                                                            id="cash" value="cash" checked>
+                                                    <label class="form-check-label">
+                                                        Cash On Delivery
+                                                    </label>
+                                                </div>
 
-                                                        <label class="form-check-label" for="cash">
-                                                            Cash On Delivery
-                                                        </label>
-                                                    </div>
+                                                <div class="form-check mb-2">
+                                                    <input class="form-check-input" type="radio" name="payment_method"
+                                                        value="visa">
 
-                                                    <div class="form-check">
-                                                        <input class="form-check-input" type="radio" name="payment_method"
-                                                            id="card" value="card">
+                                                    <label class="form-check-label">
+                                                        Visa / Mastercard
+                                                    </label>
+                                                </div>
 
-                                                        <label class="form-check-label" for="card">
-                                                            Credit Card
-                                                        </label>
-                                                    </div>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio" name="payment_method"
+                                                        value="fawry">
 
+                                                    <label class="form-check-label">
+                                                        Fawry
+                                                    </label>
                                                 </div>
                                         </div>
                                     </div>
