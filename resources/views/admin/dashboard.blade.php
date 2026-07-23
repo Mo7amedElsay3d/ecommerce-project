@@ -25,12 +25,12 @@
 
 
         <!-- =======================================================
-              * Template Name: NiceAdmin
-              * Template URL: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/
-              * Updated: Apr 20 2024 with Bootstrap v5.3.3
-              * Author: BootstrapMade.com
-              * License: https://bootstrapmade.com/license/
-              ======================================================== -->
+                                                              * Template Name: NiceAdmin
+                                                              * Template URL: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/
+                                                              * Updated: Apr 20 2024 with Bootstrap v5.3.3
+                                                              * Author: BootstrapMade.com
+                                                              * License: https://bootstrapmade.com/license/
+                                                              ======================================================== -->
     </head>
 
     <body>
@@ -193,14 +193,17 @@
                                                 <h6>Filter</h6>
                                             </li>
 
-                                            <li><a class="dropdown-item" href="#">Today</a></li>
-                                            <li><a class="dropdown-item" href="#">This Month</a></li>
-                                            <li><a class="dropdown-item" href="#">This Year</a></li>
+                                            <li><a class="dropdown-item"
+                                                    href="{{ url('/dashboard?filter=today') }}">Today</a></li>
+                                            <li><a class="dropdown-item" href="{{ url('/dashboard?filter=month') }}">This
+                                                    Month</a></li>
+                                            <li><a class="dropdown-item" href="{{ url('/dashboard?filter=year') }}">This
+                                                    Year</a></li>
                                         </ul>
                                     </div>
 
                                     <div class="card-body">
-                                        <h5 class="card-title">Reports <span>/Today</span></h5>
+                                        <h5 class="card-title">Reports <span>/ {{ $filterLabel }}</span></h5>
 
                                         <!-- Line Chart -->
                                         <div id="reportsChart"></div>
@@ -208,27 +211,44 @@
                                         <script>
                                             document.addEventListener("DOMContentLoaded", () => {
                                                 new ApexCharts(document.querySelector("#reportsChart"), {
+
                                                     series: [{
-                                                        name: 'Sales',
-                                                        data: [31, 40, 28, 51, 42, 82, 56],
-                                                    }, {
-                                                        name: 'Revenue',
-                                                        data: [11, 32, 45, 32, 34, 52, 41]
-                                                    }, {
-                                                        name: 'Customers',
-                                                        data: [15, 11, 32, 18, 9, 24, 11]
-                                                    }],
+                                                            name: 'Orders',
+                                                            type: 'area',
+                                                            data: @json($orderData)
+                                                        },
+                                                        {
+                                                            name: 'Products Sold',
+                                                            type: 'area',
+                                                            data: @json($productData)
+                                                        },
+                                                        {
+                                                            name: 'Revenue',
+                                                            type: 'line',
+                                                            data: @json($revenueData),
+                                                        }
+                                                    ],
                                                     chart: {
                                                         height: 350,
                                                         type: 'area',
                                                         toolbar: {
-                                                            show: false
-                                                        },
+                                                            show: true,
+                                                            tools: {
+                                                                download: true,
+                                                                zoom: true,
+                                                                pan: true,
+                                                                reset: true
+                                                            }
+                                                        }
                                                     },
                                                     markers: {
                                                         size: 4
                                                     },
-                                                    colors: ['#4154f1', '#2eca6a', '#ff771d'],
+                                                    colors: [
+                                                        '#0d6efd', // Orders
+                                                        '#20c997', // Products Sold
+                                                        '#ffc107' // Revenue
+                                                    ],
                                                     fill: {
                                                         type: "gradient",
                                                         gradient: {
@@ -243,20 +263,37 @@
                                                     },
                                                     stroke: {
                                                         curve: 'smooth',
-                                                        width: 2
+                                                        width: [2, 2, 4]
                                                     },
+                                                    yaxis: [
+{
+    title: {
+        text: 'Orders / Products'
+    }
+},
+{
+    opposite: true,
+    title: {
+        text: 'Revenue (EGP)'
+    }
+}
+],
                                                     xaxis: {
-                                                        type: 'datetime',
-                                                        categories: ["2018-09-19T00:00:00.000Z", "2018-09-19T01:30:00.000Z",
-                                                            "2018-09-19T02:30:00.000Z", "2018-09-19T03:30:00.000Z",
-                                                            "2018-09-19T04:30:00.000Z", "2018-09-19T05:30:00.000Z",
-                                                            "2018-09-19T06:30:00.000Z"
-                                                        ]
+                                                        categories: @json($labels)
                                                     },
                                                     tooltip: {
-                                                        x: {
-                                                            format: 'dd/MM/yy HH:mm'
-                                                        },
+                                                        shared: true,
+                                                        intersect: false,
+                                                        y: {
+                                                            formatter: function(value, {
+                                                                seriesIndex
+                                                            }) {
+                                                                if (seriesIndex === 2) {
+                                                                    return value.toLocaleString() + " EGP";
+                                                                }
+                                                                return value;
+                                                            }
+                                                        }
                                                     }
                                                 }).render();
                                             });
@@ -333,9 +370,12 @@
                                                 <h6>Filter</h6>
                                             </li>
 
-                                            <li><a class="dropdown-item" href="{{ url('/dashboard?filter=today') }}">Today</a></li>
-                                            <li><a class="dropdown-item" href="{{ url('/dashboard?filter=month') }}">This Month</a></li>
-                                            <li><a class="dropdown-item" href="{{ url('/dashboard?filter=year') }}">This Year</a></li>
+                                            <li><a class="dropdown-item"
+                                                    href="{{ url('/dashboard?filter=today') }}">Today</a></li>
+                                            <li><a class="dropdown-item" href="{{ url('/dashboard?filter=month') }}">This
+                                                    Month</a></li>
+                                            <li><a class="dropdown-item" href="{{ url('/dashboard?filter=year') }}">This
+                                                    Year</a></li>
                                         </ul>
                                     </div>
 
@@ -345,7 +385,7 @@
                                         <table class="table table-borderless">
                                             <thead>
                                                 <tr>
-                                                    
+
                                                     <th scope="col">image</th>
                                                     <th scope="col">Product name</th>
                                                     <th scope="col">Price</th>
@@ -355,17 +395,20 @@
                                             </thead>
                                             <tbody>
                                                 @foreach ($topProducts as $item)
-                                                <tr>
-                                                    <th scope="row">  <img src="{{ url($item->product->imagepath) }}" width="40"
-                                                        height="40" alt=""></th>
-                                                        <td><a href="#" class="text-primary fw-bold">{{ $item->product->name }} </a></td>
+                                                    <tr>
+                                                        <th scope="row"> <img
+                                                                src="{{ url($item->product->imagepath) }}" width="40"
+                                                                height="40" alt=""></th>
+                                                        <td><a href="#"
+                                                                class="text-primary fw-bold">{{ $item->product->name }}
+                                                            </a></td>
                                                         <td>{{ $item->product->price }}</td>
                                                         <td class="fw-bold">{{ $item->total_sold }}</td>
                                                         <td>${{ $item->total_revenue }}</td>
                                                     </tr>
-                                                    @endforeach
-                                               
-                                                
+                                                @endforeach
+
+
                                             </tbody>
                                         </table>
 
@@ -375,8 +418,8 @@
                             </div><!-- End Top Selling -->
 
                         </div>
+                        
                     </div><!-- End Left side columns -->
-
                     <!-- Right side columns -->
                     <div class="col-lg-4">
 
