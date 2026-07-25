@@ -89,11 +89,6 @@ A full-featured E-Commerce web application built with **Laravel** that provides 
 
 ---
 
-### 📈 Analytics
-
-![Analytics](screenshots/analytics.png)
-
----
 
 ## ⚙️ Installation
 
